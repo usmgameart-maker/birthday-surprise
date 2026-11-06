@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Секретная посылка 🎁</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh;display:grid;place-items:center;padding:12px;background:radial-gradient(circle at top left,#ffe5dc,transparent 55%),radial-gradient(circle at bottom right,#d7efe4,transparent 60%),#fffaf4;font-family:Arial,sans-serif;color:#805f59}
+main{width:min(100%,440px);min-height:650px;background:#fffcf8f2;border:2px solid #f1decb;border-radius:28px;box-shadow:0 16px 50px #a9877733;padding:30px 18px;text-align:center;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+main:before{content:"✦  ✧  ✦  ✧  ✦";position:absolute;top:15px;left:0;right:0;color:#d6ad58;letter-spacing:8px}
+h1,h2{font-family:Georgia,serif;color:#c99b48;line-height:1.15}
+h1{font-size:39px}h2{font-size:33px}
+p{line-height:1.6;font-size:16px}
+small{color:#a88d85}
+.screen{display:none;animation:appear .5s ease}
+.screen.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+.btn{background:#e9aaa0;color:#683f42;border:0;border-radius:30px;padding:15px 22px;font-weight:bold;box-shadow:0 5px 0 #cf8d83;margin:15px 0}
+.btn:active{transform:translateY(4px);box-shadow:none}
+.gift{font-size:125px;border:0;background:none;display:block;margin:25px auto;animation:float 2s infinite}
+@keyframes float{50%{transform:translateY(-12px) rotate(4deg)}}
+.balloons{height:310px;position:relative;margin:auto;max-width:340px}
+.balloon{position:absolute;width:83px;height:108px;border-radius:50%;border:2px solid #fff9;box-shadow:inset -12px -12px 20px #987d7733,inset 10px 10px 15px #fff8;animation:float 2.5s infinite}
+.balloon:after{content:"";position:absolute;top:105px;left:50%;height:48px;border-left:1px solid #bda79a}
+.balloon:nth-child(1){top:15px;left:4%;background:#aed8c6}
+.balloon:nth-child(2){top:0;left:38%;background:#f7b8b4}
+.balloon:nth-child(3){top:30px;right:2%;background:#f6c29a}
+.balloon:nth-child(4){top:155px;left:18%;background:#f5dca1}
+.balloon:nth-child(5){top:155px;right:15%;background:#9ecfc2}
+.balloon.pop{animation:pop .3s forwards;pointer-events:none}
+@keyframes pop{to{transform:scale(1.7);opacity:0}}
+.message{background:#fff0e3;border-radius:17px;padding:15px;margin:20px auto;min-height:60px;font-weight:bold}
+.cake{width:270px;height:245px;position:relative;margin:20px auto}
+.layer{position:absolute;bottom:20px;left:10px;width:250px;height:110px;border:3px solid #d8a67d;border-radius:17px;background:repeating-linear-gradient(to bottom,#ffd0ad 0 28px,#fff6e7 28px 48px);box-shadow:0 11px #bad8c8}
+.icing{position:absolute;bottom:125px;left:10px;width:250px;height:22px;border-radius:50%;background:white;border:2px solid #d8a67d}
+.candles{position:absolute;bottom:145px;left:32px;width:205px;display:flex;justify-content:space-between}
+.candle{height:60px;width:17px;border:1px solid #d99c94;border-radius:4px;background:repeating-linear-gradient(135deg,#f6b5a8 0 9px,#fff7ea 9px 17px);position:relative}
+.candle:before{content:"";position:absolute;width:13px;height:22px;bottom:64px;left:1px;background:#ffbe4c;border-radius:80% 10% 70% 50%;transform:rotate(45deg);box-shadow:0 0 13px #ffce57;animation:flame .6s alternate infinite}
+@keyframes flame{to{transform:rotate(35deg) scale(.8)}}
+.candle.out:before{display:none}
+.envelope{border:3px solid #dca897;background:#f5c8b9;border-radius:12px;width:230px;height:150px;position:relative;margin:30px auto}
+.envelope:before{content:"";position:absolute;inset:0;background:#ffe1d2;clip-path:polygon(0 0,50% 60%,100% 0)}
+.envelope:after{content:"💌";position:absolute;font-size:38px;top:65px;left:0;right:0}
+.letter{border:2px dashed #e4b780;border-radius:20px;background:#fff8ed;padding:15px;margin:18px 0}
+.letter p{font-size:16px}
+.secret{padding:17px;background:#e8f3eb;border:2px dashed #afd1ba;border-radius:18px;line-height:1.6;margin:15px 0}
+.hide{display:none!important}
+.confetti{position:fixed;top:-20px;width:9px;height:14px;left:var(--x);background:var(--c);pointer-events:none;z-index:10;animation:fall var(--t) linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(950deg);opacity:0}}
+@media(max-height:680px){main{min-height:calc(100dvh - 24px)}}
+</style>
+</head>
+<body>
+<main>
+<section class="screen active" id="s0">
+  <small>Сверхсекретно • Только имениннице</small>
+  <h1>У тебя посылка!</h1>
+  <p>Отдел доставки счастья сообщает: сегодня тебе положена внеочередная порция радости!</p>
+  <button class="gift" onclick="next(1)" aria-label="Открыть подарок">🎁</button>
+  <p>Осторожно! Внутри настоящий праздник.</p>
+  <button class="btn" onclick="next(1)">Открыть посылку ✨</button>
+</section>
+
+<section class="screen" id="s1">
+  <small>Задание № 1</small>
+  <h2>Лопни 5 шариков!</h2>
+  <p>В каждом спрятано пожелание. Сегодня разрешается всё лопать!</p>
+  <div class="balloons" id="balloons">
+    <button class="balloon" aria-label="Шарик 1"></button>
+    <button class="balloon" aria-label="Шарик 2"></button>
+    <button class="balloon" aria-label="Шарик 3"></button>
+    <button class="balloon" aria-label="Шарик 4"></button>
+    <button class="balloon" aria-label="Шарик 5"></button>
+  </div>
+  <div class="message" id="wish">Нажимай на шарики 🎈</div>
+  <button class="btn hide" id="b1" onclick="next(2)">Забрать пожелания →</button>
+</section>
+
+<section class="screen" id="s2">
+  <small>Задание № 2</small>
+  <h2>Торт без калорий!</h2>
+  <p>Загадай желание и погаси пять свечей, касаясь их пальцем.</p>
+  <div class="cake">
+    <div class="layer"></div>
+    <div class="icing"></div>
+    <div class="candles">
+      <button class="candle" aria-label="Свеча 1"></button>
+      <button class="candle" aria-label="Свеча 2"></button>
+      <button class="candle" aria-label="Свеча 3"></button>
+      <button class="candle" aria-label="Свеча 4"></button>
+      <button class="candle" aria-label="Свеча 5"></button>
+    </div>
+  </div>
+  <div class="message" id="cmsg">Свечи ждут твоего желания ✨</div>
+  <button class="btn hide" id="b2" onclick="next(3)">Получить секретное письмо 💌</button>
+</section>
+
+<section class="screen" id="s3">
+  <small>Лично в руки</small>
+  <h2>Тебе письмо!</h2>
+  <p>Вскрывать без свидетелей необязательно. Но с улыбкой — обязательно!</p>
+  <button class="envelope" onclick="next(4)" aria-label="Открыть письмо"></button>
+  <p>Нажми на конверт 💌</p>
+</section>
+
+<section class="screen" id="s4">
+  <div style="color:#cba452;font-size:28px">✦ ✧ ✦</div>
+  <h1>С днём рождения!</h1>
+  <div class="letter">
+    <p><strong>Моя дорогая сестрёнка! 💛</strong></p>
+    <p>Желаю тебе столько счастья, чтобы оно не помещалось ни в один чемодан, столько удачи, чтобы даже понедельники были приятными, и столько поводов улыбаться, чтобы щёки просили выходной!</p>
+    <p>Пусть деньги дружат с кошельком, мечты — с реальностью, а проблемы забывают твой адрес.</p>
+    <p>Оставайся такой же замечательной, неповторимой и чуточку вредной — для семейного баланса! 😄</p>
+    <p><strong>Обнимаю! С любовью❤️</strong></p>
+  </div>
+  <button class="btn" id="bonus" onclick="openBonus()">🎀 Открыть секретный бонус</button>
+  <div class="secret hide" id="secret">
+    📜 <strong>Официальный указ!</strong>
+    <p>Сегодня тебе разрешается не считать кусочки торта, принимать комплименты без ограничений и быть главной звездой дня!</p>
+    Срок действия: весь год. Продление автоматическое! 🥳
+  </div>
+  <button class="btn hide" id="again" onclick="location.reload()">Пройти ещё раз ↻</button>
+  <p><small>Сделано специально для тебя 💕</small></p>
+</section>
+</main>
+<script>
+const wishes=[
+"💸 Пусть деньги приходят чаще, чем уведомления!",
+"🏖️ Пусть отпуск случается чаще, чем понедельник!",
+"🍰 Пусть всё вкусное приносит только радость!",
+"✨ Пусть мечты исполняются без волшебной палочки!",
+"👑 Пусть каждый день напоминает: ты — звезда!"
+];
+function confetti(n=60){
+ const colors=["#f5c49a","#a7d5c1","#f2aaa7","#d5b45f"];
+ for(let i=0;i<n;i++){
+  const e=document.createElement("i");
+  e.className="confetti";
+  e.style.setProperty("--x",Math.random()*100+"vw");
+  e.style.setProperty("--c",colors[i%4]);
+  e.style.setProperty("--t",(2+Math.random()*3)+"s");
+  document.body.append(e);
+  setTimeout(()=>e.remove(),5500);
+ }
+}
+function next(n){
+ document.querySelector(".screen.active").classList.remove("active");
+ document.getElementById("s"+n).classList.add("active");
+ window.scrollTo(0,0);
+ confetti(n===4?120:35);
+}
+let popped=0;
+document.querySelectorAll(".balloon").forEach((b,i)=>{
+ b.onclick=()=>{
+  if(b.classList.contains("pop"))return;
+  b.classList.add("pop");
+  popped++;
+  document.getElementById("wish").textContent=wishes[i];
+  confetti(15);
+  if(popped===5){
+   document.getElementById("wish").textContent="Все пожелания твои! 🎉";
+   document.getElementById("b1").classList.remove("hide");
+  }
+ };
+});
+let blown=0;
+document.querySelectorAll(".candle").forEach(c=>{
+ c.onclick=()=>{
+  if(c.classList.contains("out"))return;
+  c.classList.add("out");
+  blown++;
+  document.getElementById("cmsg").textContent="Погашено свечей: "+blown+" из 5";
+  if(blown===5){
+   document.getElementById("cmsg").textContent="Желание принято! Вселенная получила заявку 🌟";
+   document.getElementById("b2").classList.remove("hide");
+   confetti(70);
+  }
+ };
+});
+function openBonus(){
+ document.getElementById("bonus").classList.add("hide");
+ document.getElementById("secret").classList.remove("hide");
+ document.getElementById("again").classList.remove("hide");
+ confetti(100);
+}
+</script>
+</body>
+</html>
